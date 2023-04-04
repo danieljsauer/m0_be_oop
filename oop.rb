@@ -4,7 +4,7 @@
 # it should have a method called "say" that returns whatever string is passed in, with "*~*" at the beginning and end of the string
 
 class Unicorn
-
+    attr_reader :name, :color
     def initialize(uname, color = "silver")
         @uname = uname
         @color = color 
@@ -30,13 +30,11 @@ puts "\n"
 #  it should have a thirsty attribute, that is true by default
 #  it should have a drink method. When called, the thirsty attribute changes to false
 class Vampire
-
-    def initialize(vname, pet = "bat", thirsty = true)
+    attr_reader :vname, :pet, :thirsty 
+    def initialize(vname, pet = "bat")
         @vname = vname
         @pet = pet 
         @thirsty = true
-        #This is working with thirsty = thirsty and thirsty = true. Unsure if ther is a big difference. 
-        #Also works if I remove = true in the parameter and have thirsty = true. Unsure of the "professional" way to do this.  
 
     end
 
@@ -59,17 +57,19 @@ p vampire1
 #  it should have a eat method. If the dragon eats 4 times, it is no longer hungry
 
 class Dragon
+    attr_reader :dname, :rider, :color, :is_hungry
 
     def initialize(dname, rider, color, is_hungry=true)
         @dname = dname
         @rider = rider
         @color = color
         @is_hungry = is_hungry
+        @counter = 0
     end 
 
-    def eat(meals)
-
-        if meals >= 4
+    def eat
+        @counter = @counter += 1 
+        if @counter == 4
             @is_hungry = false
         end
     end 
@@ -79,21 +79,12 @@ end
 dragon1 = Dragon.new("Balerion", "Aegon", "Black")
 
 p dragon1
-dragon1.eat(4)
+dragon1.eat
+dragon1.eat
+dragon1.eat
+dragon1.eat
+dragon1.eat
 p dragon1
-
-#I have had no luck creating a method that keeps track of a variable and changes the is_hungry value once it is called 4 seperate times.
-#I was thinking something like:
-
-# def eat2
-#     food = (food + 1)
-
-#     if food =>4
-#         is_hungry = false
-#     end
-# end 
-
-# I am getting a lot of different errors. I will play around with this more later.
 
 
 #  Write a Hobbit class
@@ -107,18 +98,21 @@ p dragon1
  
 class Hobbit 
 
-    attr_reader :age
-    def initialize(hname, disposition, age = 0, is_adult = false, is_old = false, has_ring = false)
+    attr_reader :hname, :disposition, :age, :is_adult, :is_old, :has_ring
+    def initialize(hname, disposition)
         @hname = hname
         @disposition = disposition
-        @age = age
-        @is_adult = is_adult
-        @is_old = is_old
+        @age = 0
+        @is_adult = false
+        @is_old = false
         @has_ring = false
+    end
 
-        if hname == "Frodo"
+        def has_ring
+        if @hname == "Frodo"
             @has_ring = true
         end 
+    end
 
 
     def celebrate_birthday
@@ -130,19 +124,13 @@ class Hobbit
         elsif age >= 33
             @is_adult = true
         end 
-    end 
     end
 end 
 
-hobbit1 = Hobbit.new("Frodo", "Adventerous", 34)
+hobbit1 = Hobbit.new("Frodo", "Adventerous")
 
 p hobbit1
+hobbit1.has_ring
 hobbit1.celebrate_birthday
 hobbit1.celebrate_birthday
 p hobbit1
-
-#I have having two seperate problems depending upon where I put my if statements for the age changes. 
-#If I put them within my class initialization, is_adult and is_old will be the correct values but the birthday method will not change anything.
-#If I do it like I have it now, the default values will not change. I suppose if we start every hobbit at age 0 and just run celebrate_birthday as many times as needed it will all be correct at the end.
-#However that doesnt seem too effective. I also tried playing around with parameters but given that we have to +1 the age value instead of use parameters to apply an age, I don't think that is the road we are supposed to take.
-#Learning a lot! Very exciting! 
