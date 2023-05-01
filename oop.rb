@@ -134,6 +134,9 @@ class Hobbit
     end 
 end 
 
+# I opted to create a hob_init method. This method will run the has_ring check and will also check the age and set the adult/old booleans accordingly.
+# I did not like that we had to run celebrate birthday dozens of times, so I made these changes to fix that problem.
+
 hobbit1 = Hobbit.new("Frodo", "Adventerous", 32)
 hobbit2 = Hobbit.new("Pippen", "Jester", 100)
 
