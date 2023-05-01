@@ -109,13 +109,6 @@ class Hobbit
         @has_ring = false
     end
 
-        def has_ring
-        if @name == "Frodo"
-            @has_ring = true
-        end 
-    end
-
-
     def celebrate_birthday
         @age = age + 1
         if age >= 101
@@ -126,7 +119,12 @@ class Hobbit
         end 
     end
 
-    def check_age
+    
+    def hob_init
+        if @name == "Frodo"
+            @has_ring = true
+        end 
+
         if age >= 101
             @is_old = true
          
@@ -139,15 +137,13 @@ end
 hobbit1 = Hobbit.new("Frodo", "Adventerous", 32)
 hobbit2 = Hobbit.new("Pippen", "Jester", 100)
 
+hobbit1.hob_init
 p hobbit1
-hobbit1.check_age
-hobbit1.has_ring
 hobbit1.celebrate_birthday
 hobbit1.celebrate_birthday
 p hobbit1
 
+hobbit2.hob_init
 p hobbit2
-hobbit2.check_age
-hobbit2.has_ring
 hobbit2.celebrate_birthday
 p hobbit2
